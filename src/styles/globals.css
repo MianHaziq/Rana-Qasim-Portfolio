@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #0b0f19;
+  --surface: #f6f7fb;
+  --surface-hover: #eef0f6;
+  --border: #e4e7ee;
+  --border-strong: #d3d8e3;
+  --muted-foreground: #5b6270;
+  --accent: #4f46e5;
+  --accent-foreground: #ffffff;
+  --accent-soft: #eef0ff;
+  --shadow-color: 220 20% 45%;
+  --ring: #4f46e5;
+}
+
+.dark {
+  --background: #07080d;
+  --foreground: #f3f4f8;
+  --surface: #0f1119;
+  --surface-hover: #151826;
+  --border: #1f2333;
+  --border-strong: #2a2f45;
+  --muted-foreground: #949aad;
+  --accent: #6366f1;
+  --accent-foreground: #ffffff;
+  --accent-soft: #171a2c;
+  --shadow-color: 230 60% 3%;
+  --ring: #818cf8;
+}
+
+@theme {
+  /* Between the smallest phones and `sm` — used sparingly for things like
+     switching hero CTAs from stacked to side-by-side once there's room. */
+  --breakpoint-xs: 25rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-soft: var(--accent-soft);
+  --color-ring: var(--ring);
+
+  --font-sans: var(--font-manrope);
+
+  --animate-fade-in: fade-in 0.6s ease forwards;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-feature-settings: "cv11", "ss01";
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
