@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import profile from "@/data/profile";
@@ -51,10 +52,18 @@ export default function Header() {
         <Container className="flex h-18 items-center justify-between py-4">
           <Link
             href="#top"
-            className="text-base font-semibold tracking-tight text-foreground"
+            aria-label={`${profile.name} — home`}
+            className="group relative flex size-10 items-center justify-center"
           >
-            {profile.initials}
-            <span className="text-accent">.</span>
+            <span className="relative size-10 overflow-hidden rounded-full border border-border ring-2 ring-transparent transition-all duration-200 group-hover:ring-accent/50">
+              <Image
+                src={profile.image.src}
+                alt={profile.name}
+                fill
+                sizes="40px"
+                className="object-cover"
+              />
+            </span>
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
@@ -127,9 +136,14 @@ export default function Header() {
             </div>
 
             <Container className="flex h-18 items-center justify-between border-b border-border py-4">
-              <span className="text-base font-semibold tracking-tight text-foreground">
-                {profile.initials}
-                <span className="text-accent">.</span>
+              <span className="relative size-10 overflow-hidden rounded-full border border-border">
+                <Image
+                  src={profile.image.src}
+                  alt={profile.name}
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
               </span>
               <motion.button
                 type="button"

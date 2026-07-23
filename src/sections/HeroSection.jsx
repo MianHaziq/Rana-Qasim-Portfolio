@@ -186,18 +186,25 @@ export default function HeroSection({ profile }) {
               <div className="absolute aspect-square w-[104%] rounded-full border border-accent/15 animate-spin-slow-reverse" />
             </div>
 
-            <div
-              ref={imageRef}
-              className="relative aspect-square overflow-hidden rounded-[2rem] border border-border bg-surface shadow-2xl shadow-accent/10"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 28rem, (min-width: 640px) 20rem, 14rem"
-                className="object-cover"
+            <div ref={imageRef} className="relative aspect-square">
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 animate-spin-slow rounded-full"
+                style={{
+                  background:
+                    "conic-gradient(from 0deg, var(--color-accent), transparent 40%, var(--color-accent) 100%)",
+                }}
               />
+              <div className="absolute inset-[3px] overflow-hidden rounded-full border border-background bg-surface shadow-2xl shadow-accent/10">
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 28rem, (min-width: 640px) 20rem, 14rem"
+                  className="object-cover"
+                />
+              </div>
             </div>
 
             <div
