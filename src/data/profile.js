@@ -7,7 +7,7 @@
 const profile = {
   name: "Rana Qasim",
   initials: "RQ",
-  role: "MERN Stack Developer",
+  role: "Full Stack Software Engineer",
   location: "Lahore, Pakistan",
 
   navigation: [
@@ -20,21 +20,34 @@ const profile = {
   ],
 
   hero: {
-    eyebrow: "MERN Stack Developer",
+    eyebrow: "Full Stack Software Engineer",
     headline: "Rana Qasim",
+    // Cycled one at a time under the headline. The first is rendered on the
+    // server, so keep the strongest positioning statement in that slot.
+    roles: [
+      "Full Stack Software Engineer",
+      "NestJS & React Developer",
+      "LLM-Powered Product Builder",
+      "Flutter Mobile Developer",
+    ],
     subheadline:
       "I build fast, accessible, and elegant web applications from front to back.",
     description:
-      "I design and develop full-stack products with React, Node.js, Express and MongoDB — with a sharp focus on performance, clean architecture, and interfaces that feel considered rather than assembled.",
+      "I design and develop full-stack products — NestJS and Node.js services, React and Next.js interfaces, and LLM-powered features on top — with a sharp focus on performance, clean architecture, and interfaces that feel considered rather than assembled.",
     ctaPrimary: { label: "View Projects", href: "#projects" },
     ctaSecondary: { label: "Get in Touch", href: "#contact" },
   },
 
   image: {
-    src: "/rana-qasim.jpeg",
+    src: "/rana-qasim-portrait.jpg",
     alt: "Portrait of Rana Qasim",
-    width: 480,
-    height: 480,
+    width: 714,
+    height: 714,
+    // Framing controls for the circular hero portrait — tune these two and
+    // nothing else. `objectPosition` slides the crop ("50% 20%" favours the
+    // head); `zoom` scales the photo inside the circle (1 = fit, 1.15 = tighter).
+    objectPosition: "50% 50%",
+    zoom: 1,
   },
 
   resume: {
@@ -47,14 +60,14 @@ const profile = {
     heading: "About Me",
     subheading: "A quick introduction to who I am and how I work.",
     paragraphs: [
-      "I'm a software engineering graduate and MERN stack developer based in Lahore, Pakistan, focused on building web applications that are as maintainable as they are polished. I care about the details most users never consciously notice — load times, transitions, and the small affordances that make an interface feel trustworthy.",
-      "My work spans the full stack: designing MongoDB schemas and Express APIs on the backend, and building accessible, animated React interfaces on the front. I enjoy taking a product from a rough idea to a shipped, production-ready experience.",
+      "I'm a software engineering graduate and full stack software engineer based in Lahore, Pakistan, focused on building web applications that are as maintainable as they are polished. I care about the details most users never consciously notice — load times, transitions, and the small affordances that make an interface feel trustworthy.",
+      "My work spans the full stack: designing database schemas and building NestJS and Node.js APIs on the backend, building accessible, animated React interfaces on the front, and integrating LLMs into products where they genuinely earn their place. I enjoy taking a product from a rough idea to a shipped, production-ready experience.",
       "Outside of client and academic work, I contribute to personal open-source projects and continually rebuild parts of my own toolkit to keep up with how the ecosystem evolves.",
     ],
     highlights: [
       { id: "location", label: "Location", value: "Lahore, Pakistan" },
       { id: "experience", label: "Experience", value: "1+ Year" },
-      { id: "focus", label: "Focus", value: "MERN Stack" },
+      { id: "focus", label: "Focus", value: "Full Stack & AI" },
       { id: "availability", label: "Availability", value: "Open to work" },
     ],
   },
@@ -79,6 +92,7 @@ const profile = {
         name: "Backend",
         items: [
           { name: "Node.js", icon: "nodejs" },
+          { name: "NestJS", icon: "nestjs" },
           { name: "Express.js", icon: "express" },
         ],
       },
@@ -86,6 +100,7 @@ const profile = {
         id: "database",
         name: "Database",
         items: [
+          { name: "PostgreSQL", icon: "postgresql" },
           { name: "MongoDB", icon: "mongodb" },
           { name: "Mongoose", icon: "mongoose" },
         ],
@@ -106,32 +121,56 @@ const profile = {
 
   experience: {
     heading: "Experience",
-    subheading: "Where I've applied the MERN stack professionally.",
+    subheading: "Where I've built and shipped software professionally.",
     items: [
       {
-        id: "folio-intern",
-        role: "MERN Stack Intern",
-        company: "Folio",
+        id: "folio3-software-engineer",
+        role: "Software Engineer",
+        company: "Folio3 Software",
+        companyUrl: "#",
+        location: "Onsite",
+        startDate: "Jul 2026",
+        endDate: null,
+        current: true,
+        description:
+          "Building and shipping full stack applications powered by LLMs — designing NestJS services on the backend, developing product features on the front, wiring in language models where they add real value, and owning the containerization and delivery pipeline that gets it all to production.",
+        responsibilities: [
+          "Designed and built scalable REST APIs with NestJS, applying modular architecture, dependency injection, and DTO-level request validation",
+          "Built full stack applications powered by LLMs, integrating language models into product features and handling prompting, streaming responses, and failure cases",
+          "Developed features end to end across the stack, from database schema design through to the user-facing UI",
+          "Containerized services with Docker and Docker Compose, giving the team reproducible local environments and consistent production builds",
+          "Managed source control and collaboration through Git and GitHub using feature branches, pull requests, and structured code review",
+          "Built and maintained CI/CD pipelines to automate linting, testing, and deployments on every merge to the main branch",
+          "Integrated Redis for caching and session storage, cutting repeat database reads and improving API response times",
+        ],
+      },
+      {
+        id: "remotepuzzle-trainee",
+        role: "Software Engineer Trainee",
+        company: "Remotepuzzle",
         companyUrl: "#",
         location: "Remote",
-        startDate: "Jun 2025",
-        endDate: "Dec 2025",
+        startDate: "Sep 2025",
+        endDate: "May 2026",
         current: false,
         description:
-          "Contributed to the development and maintenance of client-facing web applications built on the MERN stack, working closely with senior engineers on both API and UI work.",
+          "Trained and worked as a mobile engineer building cross-platform applications with Flutter and Dart — turning designs into responsive interfaces that run from a single codebase on both Android and iOS, and learning to write mobile code that holds up as a product grows.",
         responsibilities: [
-          "Built and maintained RESTful APIs using Node.js and Express",
-          "Developed reusable, accessible React components integrated with backend services",
-          "Collaborated with a cross-functional team using Agile practices and code review",
-          "Optimized MongoDB queries and indexes, improving average response times by roughly 30%",
+          "Built cross-platform mobile interfaces with Flutter and Dart, composing reusable widgets that render consistently across Android and iOS",
+          "Wrote idiomatic Dart — null safety, async/await, and typed models — to keep application logic predictable and easy to reason about",
+          "Implemented state management and navigation patterns that kept feature code isolated and maintainable as screens multiplied",
+          "Integrated REST APIs into the app, handling asynchronous data alongside loading, empty, and error states so the UI never left users guessing",
+          "Translated design handoffs into pixel-accurate, responsive layouts that adapt cleanly across phone and tablet screen sizes",
+          "Participated in daily standups and code review, applying senior feedback to steadily raise the quality of what I shipped",
         ],
       },
     ],
   },
 
   education: {
-    heading: "Education",
-    subheading: "My academic background in software engineering.",
+    heading: "Education & Leadership",
+    subheading:
+      "My academic background, and the communities I helped build alongside it.",
     items: [
       {
         id: "ucp-bsse",
@@ -143,8 +182,39 @@ const profile = {
         description:
           "Focused on software design, data structures and algorithms, databases, and full-stack web engineering.",
         achievements: [
-          "Final year project: a full-stack MERN e-commerce platform",
+          "Final year project: a full stack e-commerce platform",
           "Maintained a strong academic standing throughout the program",
+        ],
+      },
+      {
+        id: "trendsetter-club-president",
+        degree: "President",
+        institution: "Trendsetter Club",
+        location: "Lahore, Pakistan",
+        startDate: "2023",
+        endDate: "2025",
+        description:
+          "Led the student tech community — organising competitions and events, and running the club's coverage of emerging technology for a campus-wide audience.",
+        achievements: [
+          "Organised tech competitions and hackathons, handling planning, scheduling, and judging end to end",
+          "Hosted technical events and speaker sessions that brought industry practice onto campus",
+          "Published posts on trending technologies, building a steady following among students",
+          "Coordinated a volunteer team and managed sponsorships and logistics for each event",
+        ],
+      },
+      {
+        id: "searchopal-ambassador",
+        degree: "Campus Ambassador",
+        institution: "Search O Pal",
+        location: "Lahore, Pakistan",
+        startDate: "2024",
+        endDate: "2025",
+        description:
+          "Represented Search O Pal — a Pakistani job and internship platform connecting candidates with employers — as its ambassador on campus, bridging students and early-career opportunities.",
+        achievements: [
+          "Promoted the platform across campus, helping students find internships and graduate roles",
+          "Ran awareness sessions on building strong profiles and applying effectively",
+          "Relayed student feedback to the team to inform how the platform served new graduates",
         ],
       },
     ],
@@ -191,22 +261,28 @@ const profile = {
   },
 
   social: [
-    { id: "github", label: "GitHub", href: "https://github.com/", icon: "github" },
-    { id: "linkedin", label: "LinkedIn", href: "https://linkedin.com/", icon: "linkedin" },
+    { id: "github", label: "GitHub", href: "https://github.com/ranaqasim22", icon: "github" },
+    {
+      id: "linkedin",
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/qasim-basheer",
+      icon: "linkedin",
+    },
     { id: "twitter", label: "X (Twitter)", href: "https://x.com/", icon: "twitter" },
     { id: "email", label: "Email", href: "mailto:ranaqasimkha227@gmail.com", icon: "mail" },
   ],
 
   seo: {
-    title: "Rana Qasim — MERN Stack Developer",
+    title: "Rana Qasim — Full Stack Software Engineer",
     description:
-      "Portfolio of Rana Qasim, a MERN stack developer building fast, accessible and elegant web applications.",
+      "Portfolio of Rana Qasim, a full stack software engineer building fast, accessible and elegant web applications powered by LLMs.",
     siteUrl: "https://ranaqasim.dev",
     keywords: [
       "Rana Qasim",
-      "MERN Stack Developer",
-      "React Developer",
+      "Full Stack Software Engineer",
       "Full Stack Developer",
+      "NestJS Developer",
+      "React Developer",
       "Next.js Portfolio",
     ],
     ogImage: "/images/projects/shopnest.png",

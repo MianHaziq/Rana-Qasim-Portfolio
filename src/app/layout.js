@@ -2,6 +2,8 @@ import { ThemeProvider } from "next-themes";
 import { MotionConfig } from "framer-motion";
 import { manrope } from "@/styles/fonts";
 import { buildMetadata, buildPersonJsonLd } from "@/utils/seo";
+import ScrollProgress from "@/components/motion/ScrollProgress";
+import CursorGlow from "@/components/motion/CursorGlow";
 import "@/styles/globals.css";
 
 export const metadata = buildMetadata();
@@ -16,7 +18,11 @@ export default function RootLayout({ children }) {
           {/* Respects prefers-reduced-motion globally at the animation-execution
               layer, so components never have to branch their own rendered
               output on it (that branching is what causes hydration mismatches). */}
-          <MotionConfig reducedMotion="user">{children}</MotionConfig>
+          <MotionConfig reducedMotion="user">
+            <ScrollProgress />
+            <CursorGlow />
+            {children}
+          </MotionConfig>
         </ThemeProvider>
         <script
           type="application/ld+json"

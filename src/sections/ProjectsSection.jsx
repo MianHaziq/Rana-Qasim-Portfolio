@@ -24,7 +24,7 @@ export default function ProjectsSection({ projects }) {
             id="projects-heading"
             eyebrow="Projects"
             title="Selected Work"
-            subtitle="A selection of MERN stack projects covering e-commerce, real-time apps, and dashboards."
+            subtitle="Products I've shipped and personal builds — spanning web platforms, backend services, and mobile."
             align="center"
             className="mx-auto mb-10 sm:mb-14 lg:mb-16"
           />

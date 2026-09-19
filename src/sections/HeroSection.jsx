@@ -6,6 +6,9 @@ import { ArrowUpRight, MapPin, Mouse, ChevronDown } from "lucide-react";
 import Container from "@/components/ui/Container";
 import Button from "@/components/ui/Button";
 import HeroParticles from "@/components/HeroParticles";
+import CountUp from "@/components/motion/CountUp";
+import RoleRotator from "@/components/motion/RoleRotator";
+import TiltCard from "@/components/motion/TiltCard";
 import { useGSAP } from "@/animations/gsapConfig";
 import { buildHeroTimeline, startFloatingGroup } from "@/animations/heroAnimations";
 import { createParallax } from "@/animations/scrollAnimations";
@@ -74,6 +77,28 @@ export default function HeroSection({ profile }) {
               "radial-gradient(ellipse 60% 50% at 50% 0%, var(--color-accent-soft), transparent 70%)",
           }}
         />
+
+        {/* Slow-drifting colour mesh. Three offset blobs on long, prime-ish
+            durations so the loop never visibly repeats. Paused entirely under
+            reduced-motion by the global rule in globals.css. */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="animate-drift-a absolute -left-[10%] top-[-15%] size-[38rem] rounded-full bg-accent/22 blur-[110px]" />
+          <div className="animate-drift-b absolute -right-[12%] top-[5%] size-[32rem] rounded-full bg-indigo-400/14 blur-[120px]" />
+          <div className="animate-drift-c absolute bottom-[-20%] left-[25%] size-[30rem] rounded-full bg-accent/16 blur-[100px]" />
+        </div>
+
+        {/* Faint grid, masked to fade out toward the edges. */}
+        <div
+          className="absolute inset-0 opacity-[0.18]"
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, var(--color-border-strong) 1px, transparent 1px), linear-gradient(to bottom, var(--color-border-strong) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+            maskImage: "radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%)",
+          }}
+        />
         <div ref={bgCanvasRef} className="absolute inset-0">
           <HeroParticles className="absolute inset-0 size-full" />
         </div>
@@ -92,14 +117,19 @@ export default function HeroSection({ profile }) {
             <div className="flex flex-col gap-2 sm:gap-3">
               <h1
                 ref={headingRef}
-                className="text-3xl font-semibold leading-[1.15] tracking-tight text-foreground sm:text-5xl lg:text-6xl lg:leading-[1.1]"
+                className="text-4xl font-semibold leading-[1.1] tracking-tight text-foreground sm:text-6xl lg:text-7xl lg:leading-[1.05]"
               >
                 Hi, I&apos;m <span className="text-accent">{hero.headline}.</span>
               </h1>
 
+              <RoleRotator
+                items={hero.roles}
+                className="relative block text-xl font-semibold leading-snug tracking-tight sm:text-3xl lg:text-4xl"
+              />
+
               <p
                 ref={subheadlineRef}
-                className="text-lg font-medium leading-snug text-muted-foreground sm:text-2xl lg:text-3xl"
+                className="text-base font-medium leading-snug text-muted-foreground sm:text-xl lg:text-2xl"
               >
                 {hero.subheadline}
               </p>
@@ -170,35 +200,48 @@ export default function HeroSection({ profile }) {
             >
               {statistics.map((stat) => (
                 <div key={stat.id} className="flex flex-col gap-1">
-                  <span className="text-xl font-semibold text-foreground sm:text-3xl">
-                    {stat.value}
-                    {stat.suffix}
-                  </span>
+                  <CountUp
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    className="bg-gradient-to-br from-foreground to-foreground/55 bg-clip-text text-2xl font-bold tabular-nums text-transparent sm:text-4xl"
+                  />
                   <span className="text-xs text-muted-foreground">{stat.label}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative order-1 mx-auto w-full max-w-56 sm:max-w-xs lg:order-2 lg:max-w-none">
+          <div
+            className="relative order-1 mx-auto w-full max-w-56 sm:max-w-xs lg:order-2 lg:max-w-none"
+            style={{ "--portrait-zoom": image.zoom ?? 1 }}
+          >
             <div aria-hidden="true" className="absolute inset-0 -z-10 flex items-center justify-center">
               <div className="aspect-square w-[118%] rounded-full border border-dashed border-accent/25 animate-spin-slow" />
               <div className="absolute aspect-square w-[104%] rounded-full border border-accent/15 animate-spin-slow-reverse" />
             </div>
 
-            <div
-              ref={imageRef}
-              className="relative aspect-square overflow-hidden rounded-[2rem] border border-border bg-surface shadow-2xl shadow-accent/10"
-            >
-              <Image
-                src={image.src}
-                alt={image.alt}
-                fill
-                priority
-                sizes="(min-width: 1024px) 28rem, (min-width: 640px) 20rem, 14rem"
-                className="object-cover"
-              />
-            </div>
+            <TiltCard>
+              <div
+                ref={imageRef}
+                className="group relative aspect-square overflow-hidden rounded-full border border-border bg-surface shadow-2xl shadow-accent/20"
+              >
+                <Image
+                  src={image.src}
+                  alt={image.alt}
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 28rem, (min-width: 640px) 20rem, 14rem"
+                  /* Framing is data-driven: nudge `image.objectPosition` in
+                     profile.js to re-centre the crop without touching JSX. */
+                  style={{ objectPosition: image.objectPosition ?? "center" }}
+                  className="scale-[var(--portrait-zoom)] object-cover transition-transform duration-700 ease-out group-hover:scale-[calc(var(--portrait-zoom)*1.05)]"
+                />
+                <div
+                  aria-hidden="true"
+                  className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10"
+                />
+              </div>
+            </TiltCard>
 
             <div
               ref={badgeRef}

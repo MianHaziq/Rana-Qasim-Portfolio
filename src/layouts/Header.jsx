@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
@@ -51,10 +52,21 @@ export default function Header() {
         <Container className="flex h-18 items-center justify-between py-4">
           <Link
             href="#top"
-            className="text-base font-semibold tracking-tight text-foreground"
+            aria-label={`${profile.name} — back to top`}
+            className="group flex items-center gap-2.5"
           >
-            {profile.initials}
-            <span className="text-accent">.</span>
+            <span className="relative flex size-9 shrink-0 items-center justify-center rounded-full ring-1 ring-border transition-all duration-300 group-hover:ring-accent">
+              <Image
+                src={profile.image.src}
+                alt=""
+                fill
+                sizes="36px"
+                className="rounded-full object-cover"
+              />
+            </span>
+            <span className="text-base font-semibold tracking-tight text-foreground">
+              {profile.name}
+            </span>
           </Link>
 
           <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
@@ -127,9 +139,19 @@ export default function Header() {
             </div>
 
             <Container className="flex h-18 items-center justify-between border-b border-border py-4">
-              <span className="text-base font-semibold tracking-tight text-foreground">
-                {profile.initials}
-                <span className="text-accent">.</span>
+              <span className="flex items-center gap-2.5">
+                <span className="relative flex size-9 shrink-0 items-center justify-center rounded-full ring-1 ring-border">
+                  <Image
+                    src={profile.image.src}
+                    alt=""
+                    fill
+                    sizes="36px"
+                    className="rounded-full object-cover"
+                  />
+                </span>
+                <span className="text-base font-semibold tracking-tight text-foreground">
+                  {profile.name}
+                </span>
               </span>
               <motion.button
                 type="button"
