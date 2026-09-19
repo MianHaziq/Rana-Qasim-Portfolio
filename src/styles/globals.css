@@ -138,6 +138,186 @@ body {
   border-radius: 2px;
 }
 
+/* ── Preloader ─────────────────────────────────────────────────────────────
+   Timeline: 0–1.8s counter + bar fill · 1.75s content fades · 1.95s curtain
+   splits · 2.8s the whole layer goes inert. Driven entirely by CSS so a slow
+   hydrate or a disabled script can never leave a visitor stuck behind it. */
+
+/* Registered so the integer can be animated — a plain custom property would
+   jump straight to its end value instead of counting. */
+@property --preloader-count {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  animation: preloader-dismiss 0.01s linear 2.8s forwards;
+}
+
+.preloader-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  /* A hair over half so no seam shows between the two halves. */
+  height: 50.4vh;
+  background: var(--color-background);
+  will-change: transform;
+}
+
+.preloader-panel-top {
+  top: 0;
+  animation: preloader-part-up 0.85s cubic-bezier(0.76, 0, 0.24, 1) 1.95s forwards;
+}
+
+.preloader-panel-bottom {
+  bottom: 0;
+  animation: preloader-part-down 0.85s cubic-bezier(0.76, 0, 0.24, 1) 1.95s forwards;
+}
+
+.preloader-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  animation: preloader-content-out 0.3s cubic-bezier(0.4, 0, 1, 1) 1.75s forwards;
+}
+
+.preloader-content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 46% 40% at 50% 46%,
+    var(--color-accent-soft),
+    transparent 70%
+  );
+}
+
+.preloader-avatar {
+  position: relative;
+  display: block;
+  width: 7rem;
+  height: 7rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  box-shadow: 0 24px 70px -24px color-mix(in oklab, var(--color-accent) 65%, transparent);
+  animation: preloader-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.preloader-name {
+  position: relative;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--color-foreground);
+  animation: preloader-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+}
+
+.preloader-meter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: preloader-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.preloader-bar {
+  position: relative;
+  display: block;
+  width: 9rem;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-border);
+}
+
+.preloader-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-accent);
+  transform-origin: left;
+  animation: preloader-fill 1.8s cubic-bezier(0.32, 0, 0.2, 1) forwards;
+}
+
+.preloader-count::after {
+  counter-reset: preloader-n var(--preloader-count);
+  content: counter(preloader-n) "%";
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-muted-foreground);
+  animation: preloader-tick 1.8s cubic-bezier(0.32, 0, 0.2, 1) forwards;
+}
+
+@keyframes preloader-tick {
+  to {
+    --preloader-count: 100;
+  }
+}
+
+@keyframes preloader-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes preloader-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes preloader-content-out {
+  to {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes preloader-part-up {
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes preloader-part-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes preloader-dismiss {
+  to {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Skip the curtain outright — the global animation override below would
+     otherwise blink it away mid-split. */
+  .preloader {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
