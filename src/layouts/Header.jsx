@@ -55,13 +55,13 @@ export default function Header() {
             aria-label={`${profile.name} — back to top`}
             className="group flex items-center gap-2.5"
           >
-            <span className="relative flex size-9 shrink-0 items-center justify-center rounded-full ring-1 ring-border transition-all duration-300 group-hover:ring-accent">
+            <span className="relative size-10 shrink-0 overflow-hidden rounded-full border border-border ring-2 ring-transparent transition-all duration-200 group-hover:ring-accent/50">
               <Image
                 src={profile.image.src}
                 alt=""
                 fill
-                sizes="36px"
-                className="rounded-full object-cover"
+                sizes="40px"
+                className="object-cover"
               />
             </span>
             <span className="text-base font-semibold tracking-tight text-foreground">
@@ -140,13 +140,13 @@ export default function Header() {
 
             <Container className="flex h-18 items-center justify-between border-b border-border py-4">
               <span className="flex items-center gap-2.5">
-                <span className="relative flex size-9 shrink-0 items-center justify-center rounded-full ring-1 ring-border">
+                <span className="relative size-10 shrink-0 overflow-hidden rounded-full border border-border">
                   <Image
                     src={profile.image.src}
                     alt=""
                     fill
-                    sizes="36px"
-                    className="rounded-full object-cover"
+                    sizes="40px"
+                    className="object-cover"
                   />
                 </span>
                 <span className="text-base font-semibold tracking-tight text-foreground">

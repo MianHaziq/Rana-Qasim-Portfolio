@@ -220,26 +220,37 @@ export default function HeroSection({ profile }) {
               <div className="absolute aspect-square w-[104%] rounded-full border border-accent/15 animate-spin-slow-reverse" />
             </div>
 
+            {/* Both branches reworked this frame: the rotating conic ring came
+                from the EmailJS branch, the cursor tilt and data-driven crop
+                from this one. Kept together — the ring sits outside the
+                masked portrait so neither clips the other. */}
             <TiltCard>
-              <div
-                ref={imageRef}
-                className="group relative aspect-square overflow-hidden rounded-full border border-border bg-surface shadow-2xl shadow-accent/20"
-              >
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 28rem, (min-width: 640px) 20rem, 14rem"
-                  /* Framing is data-driven: nudge `image.objectPosition` in
-                     profile.js to re-centre the crop without touching JSX. */
-                  style={{ objectPosition: image.objectPosition ?? "center" }}
-                  className="scale-[var(--portrait-zoom)] object-cover transition-transform duration-700 ease-out group-hover:scale-[calc(var(--portrait-zoom)*1.05)]"
-                />
+              <div ref={imageRef} className="group relative aspect-square">
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10"
+                  className="absolute inset-0 animate-spin-slow rounded-full"
+                  style={{
+                    background:
+                      "conic-gradient(from 0deg, var(--color-accent), transparent 40%, var(--color-accent) 100%)",
+                  }}
                 />
+                <div className="absolute inset-[3px] overflow-hidden rounded-full border border-background bg-surface shadow-2xl shadow-accent/10">
+                  <Image
+                    src={image.src}
+                    alt={image.alt}
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 28rem, (min-width: 640px) 20rem, 14rem"
+                    /* Framing is data-driven: nudge `image.objectPosition` in
+                       profile.js to re-centre the crop without touching JSX. */
+                    style={{ objectPosition: image.objectPosition ?? "center" }}
+                    className="scale-[var(--portrait-zoom)] object-cover transition-transform duration-700 ease-out group-hover:scale-[calc(var(--portrait-zoom)*1.05)]"
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 rounded-full ring-1 ring-inset ring-white/10"
+                  />
+                </div>
               </div>
             </TiltCard>
 
